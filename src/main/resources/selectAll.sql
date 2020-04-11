@@ -1,0 +1,1 @@
+SELECT r.id, r.type, r.value_date, r.created_at from rating.rating as r

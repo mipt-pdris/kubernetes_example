@@ -1,0 +1,27 @@
+version: "3"
+services:
+  app:
+    container_name: app-springboot-postgresql
+    image: docker-boot
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+    depends_on:
+      - dbpostgresql
+  dbpostgresql:
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=testdb
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: bocharov.i.ge@sberbank.ru
+      PGADMIN_DEFAULT_PASSWORD: password
+    depends_on:
+      - dbpostgresql

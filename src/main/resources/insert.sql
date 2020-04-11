@@ -1,0 +1,1 @@
+INSERT INTO rating.rating(type, value_date) values (:type, :value_date)

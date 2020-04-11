@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'org.springframework.boot' version "2.0.0.RELEASE"
+    id 'com.palantir.docker' version "0.19.2" // плагин для docker https://github.com/palantir/gradle-docker
+    id 'com.palantir.docker-run' version "0.19.2" // плагин для docker https://github.com/palantir/gradle-docker
+}
+
+version = '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'spring.boot.example.ApplicationConfiguration'
+    }
+}
+
+dependencies {
+    compile 'org.postgresql:postgresql:42.2.10'
+    compile 'org.springframework.boot:spring-boot-starter-jdbc:2.0.0.RELEASE'
+    compile 'org.flywaydb:flyway-core:5.2.4'
+    compile "org.springframework.boot:spring-boot-starter-web:2.0.0.RELEASE"
+    compileOnly "org.projectlombok:lombok:1.18.10"
+}
+
+// конфигурация сборки образа
+docker {
+    name "${project.name}"  // название образа
+    tags "${version}"       // дополнительный тег (добавляет отдельную задачу)
+    files jar.archivePath   // передаем jar в контекст
+    buildArgs([JAR_FILE: "${jar.archiveName}"]) // передаем имя jar в качестве аргумента сборки
+    noCache true // опция --no-cache
+}
+// конфигурация запуска контейнера
+dockerRun {
+    name "${project.name}-inst" // опция --name
+    image "${project.name}" // имя образа
+    ports '8088:8080' // опция -p
+    daemonize true // опция -d
+    clean true // опция --rm
+}
