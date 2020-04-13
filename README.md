@@ -7,7 +7,7 @@ kubectl config use-context minikube
 ```
 
 Use `minikube dashboard` to see what happens with kubernetes in your browser.
-
+Note: in case of any troubles check #Troubleshoot section at the end of README
 1. Create postgres pod, service and persistent volume with configuration `postgres.yaml`:\
 `kubectl create -f kube/postgres.yaml`
 2. Package application into jar:\
@@ -19,7 +19,7 @@ Use `minikube dashboard` to see what happens with kubernetes in your browser.
 5. Expose service for created deployment `kube-boot`:
 `kubectl expose deployment kube-boot --type=LoadBalancer --port=8080` 
 6. Get external url of `kube-boot` service:
-`minikube service docker-boot --url`
+`minikube service kube-boot --url`
 7. Copy url with port that you get on previous stage and insert it in browser. You should see `Hello World! profile: prod`
 
 # Troubleshoot
