@@ -5,6 +5,9 @@ minikube delete
 minikube start
 kubectl config use-context minikube
 ```
+
+Use `minikube dashboard` to see what happens with kubernetes in your browser.
+
 1. Create postgres pod, service and persistent volume with configuration `postgres.yaml`:\
 `kubectl create -f kube/postgres.yaml`
 2. Package application into jar:\
@@ -20,8 +23,9 @@ kubectl config use-context minikube
 7. Copy url with port that you get on previous stage and insert it in browser. You should see `Hello World! profile: prod`
 
 # Troubleshoot
-If your pod didn't start and stay in status `ErrImagePull`, then execute in terminal `eval $(minikube docker-env)`. 
-This command will point your docker client to your machine's docker daemon. To undo that execute `eval $(minikube docker-env -u)`. 
+If your pod didn't start and stay in status `ErrImagePull`, then execute in terminal `eval $(minikube docker-env)` and rebuild docker-boot image and recreate pod (`kubectl delete -f kube/postgres.yaml` and `kubectl create -f kube/postgres.yaml`)
+
+`eval $(...)` command will point your docker client to your machine's docker daemon. To undo that execute `eval $(minikube docker-env -u)`. 
 
 To check logs of starting of your spring boot, get your pod name from your cluster(ex. `kube-boot-697fdf6ff4-jb6qc`) and execute command `kubectl logs <YOUR_POD_NAME>`
 
