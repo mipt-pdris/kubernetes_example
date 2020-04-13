@@ -11,7 +11,7 @@
 5. Expose service for created deployment `kube-boot`:
 `kubectl expose deployment kube-boot --type=LoadBalancer --port=8080` 
 6. Get external url of `kube-boot` service:
-`minikube service docker-boot --url`
+`minikube service kube-boot --url`
 7. Copy url with port that you get on previous stage and insert it in browser. You should see `Hello World! profile: prod`
 
 # Troubleshoot
