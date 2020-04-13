@@ -1,5 +1,10 @@
 # How to setup
-
+0. Clean minikube machine if there are any, start new and assign context.
+```
+minikube delete
+minikube start
+kubectl config use-context minikube
+```
 1. Create postgres pod, service and persistent volume with configuration `postgres.yaml`:\
 `kubectl create -f kube/postgres.yaml`
 2. Package application into jar:\
